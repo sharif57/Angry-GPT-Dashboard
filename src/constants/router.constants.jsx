@@ -18,7 +18,7 @@ import { FaServicestack } from "react-icons/fa6";
 import { BiMessageSquareDetail } from "react-icons/bi";
 
 
-import DriverRequest from "../pages/Main/DriverRequest/DriverRequest";
+import DriverRequest from "../pages/Main/ManageOrders/ManageOrders";
 import Setting from "../pages/Main/Setting/Setting";
 import Support from "../pages/Main/Support/Support";
 import ChangePassword from "../pages/Main/Setting/Change-password/ChangePassword";
@@ -36,6 +36,7 @@ import { BookOpenText } from "lucide-react";
 import Books from "../pages/Main/Books/Books";
 import AddBook from "../pages/Main/AddBook/AddBook";
 import AddBookEdit from "../pages/Main/AddBookEdit/AddBookEdit";
+import ManageOrders from "../pages/Main/ManageOrders/ManageOrders";
 
 export const dashboardItems = [
   {
@@ -103,10 +104,10 @@ export const dashboardItems = [
     element: <AddBookEdit />,
   },
   {
-    name: "Driver Request",
-    path: "driver-request",
+    name: "Manage Orders",
+    path: "manage-orders",
     icon: PiLaptopThin,
-    element: <DriverRequest />,
+    element: <ManageOrders />,
   },
   {
     name: "Support",
