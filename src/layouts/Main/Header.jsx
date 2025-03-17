@@ -62,7 +62,7 @@ const Header = () => {
           <div>
             <img src={profileImage} alt="" className="rounded-full h-[42px] w-[42px]" />
           </div>
-          <Select
+          {/* <Select
             defaultValue="Jane Cooper"
             style={{
               width: 120,
@@ -80,7 +80,7 @@ const Header = () => {
                 label: 'Lucy',
               }
             ]}
-          />
+          /> */}
         </div>
       </div>
     </div>

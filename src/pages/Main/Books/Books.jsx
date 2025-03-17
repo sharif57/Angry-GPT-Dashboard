@@ -188,7 +188,13 @@
 // }
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, EllipsisVertical } from "lucide-react";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  EllipsisVertical,
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 const books = [
   {
@@ -272,12 +278,35 @@ export default function AllBookStore() {
 
   const handlePageChange = (page) => setCurrentPage(page);
   const toggleMenu = (id) => setMenuOpen(menuOpen === id ? null : id);
-  const handleEdit = (id) => alert(`Edit book ID: ${id}`);
+  // const handleEdit = (id) => alert(`Edit book ID: ${id}`);
   const handleDelete = (id) => alert(`Delete book ID: ${id}`);
 
   return (
     <div>
-      <section className="py-8 sm:py-12 md:py-16 lg:py-24">
+      <section className="">
+        <div className="p-4">
+          {/* Header Section */}
+         
+
+          {/* Add Subscription Button */}
+          <div className="flex justify-between items-center">
+          <div className="flex items-center gap-4  py-4 px-3">
+            <Link to={"/"}>
+              <button className="p-2 rounded-full transition-colors hover:bg-gray-700">
+                <ArrowLeft className="w-5 h-5 text-white" />
+              </button>
+            </Link>
+            <h1 className="text-xl font-semibold text-white">Books</h1>
+          </div>
+            <Link to={"/addBook"}>
+              <button className="flex items-center gap-2 bg-[#CAEA31] text-black px-4 py-2 rounded-lg shadow-md transition-all hover:bg-[#b6d42e]">
+                {/* <Plus size={16} /> */}
+                <span>Add New Book</span>
+              </button>
+            </Link>
+          </div>
+        </div>
+
         <div className="w-full container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12">
             {currentBooks.map((book) => (
@@ -312,12 +341,12 @@ export default function AllBookStore() {
                       </button>
                       {menuOpen === book.id && (
                         <div className="absolute right-0 mt-2 w-32 bg-white shadow-md rounded-md py-2 border border-gray-200 z-10">
-                          <button
+                          <Link to={'/addBookEdit'}
                             className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                            onClick={() => handleEdit(book.id)}
+                            // onClick={() => handleEdit(book.id)}
                           >
                             Edit
-                          </button>
+                          </Link>
                           <button
                             className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
                             onClick={() => handleDelete(book.id)}

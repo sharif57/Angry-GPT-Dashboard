@@ -34,6 +34,8 @@ import Subscription from "../pages/Main/Subscription/Subscription";
 import AddSubscription from "../pages/Main/AddSubscription/AddSubscription";
 import { BookOpenText } from "lucide-react";
 import Books from "../pages/Main/Books/Books";
+import AddBook from "../pages/Main/AddBook/AddBook";
+import AddBookEdit from "../pages/Main/AddBookEdit/AddBookEdit";
 
 export const dashboardItems = [
   {
@@ -88,9 +90,17 @@ export const dashboardItems = [
   },
   {
     name: "Books",
-    path: "driver",
+    path: "books",
     icon: BookOpenText ,
     element: <Books />,
+  },
+  {
+    path: "addBook",
+    element: <AddBook />,
+  },
+  {
+    path: "addBookEdit",
+    element: <AddBookEdit />,
   },
   {
     name: "Driver Request",
