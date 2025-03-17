@@ -18,7 +18,7 @@ import { FaServicestack } from "react-icons/fa6";
 import { BiMessageSquareDetail } from "react-icons/bi";
 
 import Earnings from "../pages/Main/Subscription/Subscription";
-import Driver from "../pages/Main/Driver/Driver";
+import Driver from "../pages/Main/Books/Books";
 import DriverRequest from "../pages/Main/DriverRequest/DriverRequest";
 import Setting from "../pages/Main/Setting/Setting";
 import Support from "../pages/Main/Support/Support";
@@ -34,6 +34,8 @@ import { BiSupport } from "react-icons/bi";
 import { IoSettingsOutline } from "react-icons/io5";
 import Subscription from "../pages/Main/Subscription/Subscription";
 import AddSubscription from "../pages/Main/AddSubscription/AddSubscription";
+import { BookOpenText } from "lucide-react";
+import Books from "../pages/Main/Books/Books";
 
 export const dashboardItems = [
   {
@@ -87,10 +89,10 @@ export const dashboardItems = [
     element: <AddSubscription  />,
   },
   {
-    name: "Driver",
+    name: "Books",
     path: "driver",
-    icon: GrUserManager,
-    element: <Driver />,
+    icon: BookOpenText ,
+    element: <Books />,
   },
   {
     name: "Driver Request",
