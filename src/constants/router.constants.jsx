@@ -17,8 +17,7 @@ import HostDetails from "../pages/Main/Host/HostDetails";
 import { FaServicestack } from "react-icons/fa6";
 import { BiMessageSquareDetail } from "react-icons/bi";
 
-import Earnings from "../pages/Main/Subscription/Subscription";
-import Driver from "../pages/Main/Books/Books";
+
 import DriverRequest from "../pages/Main/DriverRequest/DriverRequest";
 import Setting from "../pages/Main/Setting/Setting";
 import Support from "../pages/Main/Support/Support";
@@ -29,7 +28,6 @@ import Trust from "../pages/Settings/Trust";
 import EditTrust from "../pages/Settings/EditTrust";
 import { TbCash } from "react-icons/tb";
 import { PiLaptopThin } from "react-icons/pi";
-import { GrUserManager } from "react-icons/gr";
 import { BiSupport } from "react-icons/bi";
 import { IoSettingsOutline } from "react-icons/io5";
 import Subscription from "../pages/Main/Subscription/Subscription";
