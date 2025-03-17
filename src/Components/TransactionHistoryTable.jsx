@@ -1,6 +1,22 @@
-import { Table } from "antd";
+import { Modal, Table } from "antd";
+import { useState } from "react";
 
-const DashboardHomeTable = () => {
+const TransactionHistoryTable = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+
+  const showModal = (transaction) => {
+    setSelectedTransaction(transaction);
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const columns = [
     {
       title: "#SI",
@@ -24,10 +40,15 @@ const DashboardHomeTable = () => {
       dataIndex: "Subscription",
     },
     {
+      title: "Amount",
+      key: "Amount",
+      dataIndex: "Amount",
+    },
+    {
       title: "Action",
       key: "Review",
       aligen: "center",
-      render: (_, data) => (
+      render: (record, data) => (
         <div className="  items-center justify-around textcenter flex">
           {/* Review Icon */}
           {/* <img
@@ -36,6 +57,7 @@ const DashboardHomeTable = () => {
             className="btn  px-3 py-1 text-sm rounded-full "
           /> */}
           <svg
+            onClick={() => showModal(record)}
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -64,6 +86,7 @@ const DashboardHomeTable = () => {
       name: "Henry",
       Email: "sharif@gmail.com",
       Subscription: "Yearly",
+      Amount: "99",
       Review: "See Review",
       date: "16 Apr 2024",
       _id: index,
@@ -80,8 +103,37 @@ const DashboardHomeTable = () => {
         pagination={{ position: ["bottomCenter"] }}
         className="rounded-lg bg-[#212121]"
       />
+      <Modal
+        title="Transaction Details"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        {selectedTransaction && (
+          <div>
+            <p>
+              <strong>ID:</strong> {selectedTransaction.transIs}
+            </p>
+            <p>
+              <strong>Name:</strong> {selectedTransaction.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedTransaction.Email}
+            </p>
+            <p>
+              <strong>Subscription:</strong> {selectedTransaction.Subscription}
+            </p>
+            <p>
+              <strong>Amount:</strong> ${selectedTransaction.Amount}
+            </p>
+            <p>
+              <strong>Date:</strong> {selectedTransaction.date}
+            </p>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
 
-export default DashboardHomeTable;
+export default TransactionHistoryTable;

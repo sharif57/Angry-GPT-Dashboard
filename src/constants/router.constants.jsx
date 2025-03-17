@@ -18,9 +18,7 @@ import { FaServicestack } from "react-icons/fa6";
 import { BiMessageSquareDetail } from "react-icons/bi";
 
 
-import DriverRequest from "../pages/Main/ManageOrders/ManageOrders";
 import Setting from "../pages/Main/Setting/Setting";
-import Support from "../pages/Main/Support/Support";
 import ChangePassword from "../pages/Main/Setting/Change-password/ChangePassword";
 import ForgotPassword from "../pages/Main/Setting/Change-password/ForgotPassword";
 import VerifyEmail from "../pages/Main/Setting/Change-password/VerifyEmail";
@@ -28,7 +26,6 @@ import Trust from "../pages/Settings/Trust";
 import EditTrust from "../pages/Settings/EditTrust";
 import { TbCash } from "react-icons/tb";
 import { PiLaptopThin } from "react-icons/pi";
-import { BiSupport } from "react-icons/bi";
 import { IoSettingsOutline } from "react-icons/io5";
 import Subscription from "../pages/Main/Subscription/Subscription";
 import AddSubscription from "../pages/Main/AddSubscription/AddSubscription";
@@ -36,7 +33,8 @@ import { BookOpenText } from "lucide-react";
 import Books from "../pages/Main/Books/Books";
 import AddBook from "../pages/Main/AddBook/AddBook";
 import AddBookEdit from "../pages/Main/AddBookEdit/AddBookEdit";
-import ManageOrders from "../pages/Main/ManageOrders/ManageOrders";
+import ManageOrders from "../pages/Main/Manage Orders/ManageOrders";
+import TransactionHistory from "../pages/Main/TransactionHistory/TransactionHistory";
 
 export const dashboardItems = [
   {
@@ -51,33 +49,7 @@ export const dashboardItems = [
     icon: FaUser,
     element: <Guests />,
   },
-  // {
-  //   name: "Approve Request",
-  //   rootPath: "approveRequest",
-  //   icon: GrMoney,
-  //   children: [
-  //     {
-  //       name: "Studio Post",
-  //       path: "approveRequest/all-earnings",
-  //       icon: LuWallet,
-  //       element: <StudioPost />,
-  //     },
-  //     {
-  //       name: "Trainer Post",
-  //       path: "approveRequest/withdraw",
-  //       icon: PiHandWithdrawBold,
-  //       element: <TrainerPost />,
-  //     },
-  //   ],
-  // },
-  // {
-  //   path: "notifications",
-  //   element: <Notifications />,
-  // },
-  // {
-  //   path: '/reviews',
-  //   element: <Review></Review>
-  // },
+
 
   {
     name: "Subscription",
@@ -110,11 +82,12 @@ export const dashboardItems = [
     element: <ManageOrders />,
   },
   {
-    name: "Support",
-    path: "support",
-    icon: BiSupport,
-    element: <Support />,
+    name: "Transaction History",
+    path: "transaction-history",
+    icon: PiLaptopThin,
+    element: <TransactionHistory />,
   },
+
   {
     name: "Setting",
     path: "settings",

@@ -1,7 +1,7 @@
-import DashboardHomeTable from "../../../Components/DashboardHomeTable";
-import BarChartComponent from "./BarChart";
 
-const DashboardHome = () => {
+import TransactionHistoryTable from "../../../Components/TransactionHistoryTable";
+
+const TransactionHistory = () => {
   return (
     <div className="space-y-[24px] ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10  gap-y-10 w-4/5">
@@ -31,9 +31,9 @@ const DashboardHome = () => {
         </div>
       </div>
       {/* <BarChartComponent /> */}
-      <DashboardHomeTable />
+      <TransactionHistoryTable />
     </div>
   );
 };
 
-export default DashboardHome;
+export default TransactionHistory;
