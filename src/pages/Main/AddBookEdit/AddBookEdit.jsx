@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSingleBookDetailsMutation } from "../../../redux/features/BooksSlice";
 
 export default function AddBookEdit() {
   const [bookData, setBookData] = useState({
@@ -12,6 +13,9 @@ export default function AddBookEdit() {
     image: null,
     imagePreview: null,
   });
+
+  const {data}= useSingleBookDetailsMutation()
+  console.log(data)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +29,7 @@ export default function AddBookEdit() {
       setBookData({ ...bookData, image: file, imagePreview: imageUrl });
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
