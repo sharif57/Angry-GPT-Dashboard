@@ -72,8 +72,9 @@ export const dashboardItems = [
     element: <AddBook />,
   },
   {
-    path: "addBookEdit",
+    path: "addBookEdit/:id",
     element: <AddBookEdit />,
+    loader: ({ params }) => fetch(`${import.meta.env.VITE_IMAGE_API}/books/${params.id}`),
   },
   {
     name: "Manage Orders",
