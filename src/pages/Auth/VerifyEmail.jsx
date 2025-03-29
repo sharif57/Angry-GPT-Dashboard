@@ -50,19 +50,22 @@ const VerifyEmail = () => {
     // }
   };
   return (
-    <div className="min-h-[92vh] w-full grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-1 lg:gap-8">
-      <div className="lg:border-r-2 border-primary mx-auto w-[90%] lg:p-[8%]">
-        <img src={image} alt="" />
+    <div className="flex bg-[#212121] h-screen">
+      <div className="w-1/2 flex justify-center items-center ">
+        <h1 className="text-[72px] font-medium text-[#CAEA31]">AngryGPT</h1>
       </div>
-      <div className="lg:p-[5%] order-first lg:order-last">
-        <div className="w-full py-[64px] lg:px-[44px] space-y-5">
+      <div className="w-1/2 bg-[#171717] flex justify-center items-center">
+        <div className="shadow-lg bg-[#212121] border border-[#CAEA31] rounded-lg px-8 py-16 w-[645px]">
           <div className="flex flex-col items-center lg:items-start">
-            <PageHeading
+            {/* <PageHeading
               backPath={"/auth/forgot-password"}
               title={"Verify Email"}
               disbaledBackBtn={true}
-            />
-            <p className=" drop-shadow text-hash mt-5 text-center lg:text-left">
+            /> */}
+            <h1 className="text-center text-[24px] mb-4 text-[#ffffff]">
+              Forgot Password
+            </h1>
+            <p className=" drop-shadow text-hash mt-5 text-center lg:text-left text-white">
               Please check your email. We have sent a code to contact @gmail.com
             </p>
           </div>
@@ -74,20 +77,20 @@ const VerifyEmail = () => {
             }}
             onFinish={onFinish}
           >
-            <div className="py-3 text-2xl font-semibold flex justify-center">
+            <div className="py-3  text-2xl font-semibold flex justify-center gap-1">
               <OTPInput
                 value={otp}
                 onChange={setOtp}
-                numInputs={4}
+                numInputs={6}
                 inputStyle={{
                   height: "70px",
                   width: "70px",
-                  margin: "20px",
+                  margin: "10px",
                   // background: "#ECE8F1",
                   border: "1px solid #61D0FF",
                   // marginRight: "auto",
                   outline: "none",
-                  borderRadius: "16px",
+                  borderRadius: "50%",
                   color: "black",
                 }}
                 renderSeparator={<span> </span>}
@@ -95,15 +98,15 @@ const VerifyEmail = () => {
               />
             </div>
             <div className="w-full flex justify-center pt-5">
-                <Button
-                  // disabled={isLoading}
-                  type="primary"
-                  size="large"
-                  htmlType="submit"
-                  className="w-full px-2 "
-                >
-                  Verify Email
-                </Button>
+              <Button
+                // disabled={isLoading}
+                type="primary"
+                size="large"
+                htmlType="submit"
+                className="w-full px-2 "
+              >
+                Verify Email
+              </Button>
             </div>
           </Form>
         </div>
