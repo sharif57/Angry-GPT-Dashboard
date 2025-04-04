@@ -3,16 +3,31 @@ import baseApi from "../api/baseApi";
 export const transactionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     updateProfile: builder.mutation({
-        query: (data) => ({
-          url: "/admin/edit",
-          method: "PATCH",
-          body: data,
-          formData: true,
-        }),
-        invalidatesTags: ["User"],
+      query: (data) => ({
+        url: "/admin/edit",
+        method: "PATCH",
+        body: data,
+        formData: true,
       }),
-    })
-  })
+      invalidatesTags: ["User"],
+    }),
 
+    userProfile: builder.query({
+      query: () => ({
+        url: '/me',
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
 
-export const {  useUpdateProfileMutation } = transactionApi;
+    userList: builder.query({
+      query: () => ({
+        url: "/admin/users",
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
+  }),
+});
+
+export const { useUpdateProfileMutation, useUserListQuery, useUserProfileQuery } = transactionApi;

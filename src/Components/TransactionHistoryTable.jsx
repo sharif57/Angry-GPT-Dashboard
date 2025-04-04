@@ -1,9 +1,11 @@
 import { Modal, Table } from "antd";
 import { useState } from "react";
+import { useAllTransactionGetQuery } from "../redux/features/transactionSlice";
 
 const TransactionHistoryTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const { data: transactionsData } = useAllTransactionGetQuery();
 
   const showModal = (transaction) => {
     setSelectedTransaction(transaction);
@@ -17,45 +19,42 @@ const TransactionHistoryTable = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const columns = [
     {
       title: "#SI",
       dataIndex: "transIs",
       key: "transIs",
-      render: (text) => <a>{text}</a>,
+      render: (text, record, index) => <a>{index + 1}</a>,
     },
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: ["user", "name"],
       key: "name",
     },
     {
       title: "Email",
-      dataIndex: "Email",
-      key: "Email",
+      dataIndex: ["user", "email"],
+      key: "email",
     },
     {
-      title: "Subscription",
-      key: "Subscription",
-      dataIndex: "Subscription",
+      title: "Payment Method",
+      key: "payment_method",
+      dataIndex: "payment_method",
+      render: (method) => method.charAt(0).toUpperCase() + method.slice(1)
     },
     {
       title: "Amount",
-      key: "Amount",
-      dataIndex: "Amount",
+      key: "amount",
+      dataIndex: "amount",
+      render: (amount) => `$${amount.toFixed(2)}`
     },
     {
       title: "Action",
-      key: "Review",
-      aligen: "center",
-      render: (record, data) => (
-        <div className="  items-center justify-around textcenter flex">
-          {/* Review Icon */}
-          {/* <img
-            src={exlamIcon}
-            alt=""
-            className="btn  px-3 py-1 text-sm rounded-full "
-          /> */}
+      key: "action",
+      align: "center",
+      render: (record) => (
+        <div className="items-center justify-around text-center flex">
           <svg
             onClick={() => showModal(record)}
             width="24"
@@ -69,39 +68,21 @@ const TransactionHistoryTable = () => {
               fill="#BABABA"
             />
           </svg>
-
-          {/* <Link to={'/reviews'} className="btn bg-black text-white px-3 py-1 text-sm rounded-full">
-           
-            View
-          </Link> */}
         </div>
       ),
     },
   ];
 
-  const data = [];
-  for (let index = 0; index < 6; index++) {
-    data.push({
-      transIs: `${index + 1}`,
-      name: "Henry",
-      Email: "sharif@gmail.com",
-      Subscription: "Yearly",
-      Amount: "99",
-      Review: "See Review",
-      date: "16 Apr 2024",
-      _id: index,
-    });
-  }
-
   return (
     <div className="rounded-lg border py-4 border-black mt-8 recent-users-table">
-      <h3 className="text-2xl text-white mb-4 pl-2">Recent Users</h3>
+      <h3 className="text-2xl text-white mb-4 pl-2">Transaction</h3>
       {/* Ant Design Table */}
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={transactionsData?.data || []}
         pagination={{ position: ["bottomCenter"] }}
         className="rounded-lg bg-[#212121]"
+        rowKey="_id"
       />
       <Modal
         title="Transaction Details"
@@ -112,22 +93,22 @@ const TransactionHistoryTable = () => {
         {selectedTransaction && (
           <div>
             <p>
-              <strong>ID:</strong> {selectedTransaction.transIs}
+              <strong>Transaction ID:</strong> {selectedTransaction.transaction_id}
             </p>
             <p>
-              <strong>Name:</strong> {selectedTransaction.name}
+              <strong>Name:</strong> {selectedTransaction.user?.name}
             </p>
             <p>
-              <strong>Email:</strong> {selectedTransaction.Email}
+              <strong>Email:</strong> {selectedTransaction.user?.email}
             </p>
             <p>
-              <strong>Subscription:</strong> {selectedTransaction.Subscription}
+              <strong>Payment Method:</strong> {selectedTransaction.payment_method}
             </p>
             <p>
-              <strong>Amount:</strong> ${selectedTransaction.Amount}
+              <strong>Amount:</strong> ${selectedTransaction.amount?.toFixed(2)}
             </p>
             <p>
-              <strong>Date:</strong> {selectedTransaction.date}
+              <strong>Date:</strong> {new Date(selectedTransaction.createdAt).toLocaleDateString()}
             </p>
           </div>
         )}

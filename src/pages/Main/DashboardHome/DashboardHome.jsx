@@ -1,7 +1,10 @@
 import DashboardHomeTable from "../../../Components/DashboardHomeTable";
+import { useAllTransactionGetQuery } from "../../../redux/features/transactionSlice";
 import BarChartComponent from "./BarChart";
 
 const DashboardHome = () => {
+  const {data} =useAllTransactionGetQuery()
+  console.log(data?.meta)
   return (
     <div className="space-y-[24px] ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10  gap-y-10 w-4/5">
@@ -9,7 +12,7 @@ const DashboardHome = () => {
           <div className="text-center">
             <h3 className="text-[20px] text-[#EFF8BF]">{"App Transaction"}</h3>
             <h3 className="text-[30px] font-extralight text-[#CAEA31]">
-              {`$8920 `}
+              {`${data?.meta?.byApp} `}
             </h3>
           </div>
         </div>
@@ -17,7 +20,7 @@ const DashboardHome = () => {
           <div className="text-center">
             <h3 className="text-[20px] text-[#EFF8BF]">{"Web Transaction"}</h3>
             <h3 className="text-[30px] font-extralight text-[#CAEA31]">
-              {`$8920 `}
+            {`${data?.meta?.byWeb} `}
             </h3>
           </div>
         </div>
@@ -25,7 +28,7 @@ const DashboardHome = () => {
           <div className="text-center">
             <h3 className="text-[20px] text-[#EFF8BF]">{"Total Transaction"}</h3>
             <h3 className="text-[30px] font-extralight text-[#CAEA31]">
-              {`$8920 `}
+            {`${data?.meta?.total} `}
             </h3>
           </div>
         </div>

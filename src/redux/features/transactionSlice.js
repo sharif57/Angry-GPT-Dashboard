@@ -4,7 +4,7 @@ export const transactionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allTransactionGet: builder.query({
       query: () => ({
-        url: "/admin/transaction",
+        url: "/admin/transactions",
         method: "GET",
       }),
       providesTags: ["Transaction"],

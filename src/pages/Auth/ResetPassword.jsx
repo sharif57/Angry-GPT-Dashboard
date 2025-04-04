@@ -58,7 +58,7 @@ const ResetPassword = () => {
   };
   return (
     <div className="flex bg-[#212121] h-screen">
-         <div className="w-1/2 flex justify-center items-center ">
+      <div className="w-1/2 flex justify-center items-center ">
         <h1 className="text-[72px] font-medium text-[#CAEA31]">AngryGPT</h1>
       </div>
       <div className="w-1/2 bg-[#171717] flex justify-center items-center">
@@ -69,7 +69,7 @@ const ResetPassword = () => {
               title={"Set new password"}
               disbaledBackBtn={true}
             /> */}
-             <h1 className="text-center text-[24px] mb-4 text-[#ffffff]">
+            <h1 className="text-center text-[24px] mb-4 text-[#ffffff]">
               Forgot Password
             </h1>
             <p className=" drop-shadow text-white mt-5">
@@ -87,7 +87,9 @@ const ResetPassword = () => {
           >
             <Form.Item
               label={
-                <span className="font-medium text-white mt-3">New Password</span>
+                <span className="font-medium text-white mt-3">
+                  New Password
+                </span>
               }
               name="newPassword"
               rules={[
