@@ -20,8 +20,9 @@
 //     author: "",
 //     description: "",
 //     stock: "",
-//     images: null,
-//     imagePreview: null,
+//     images: [],
+//     imagePreviews: [],
+//     existingImages: [],
 //   });
 
 //   // Load book details when available
@@ -34,8 +35,9 @@
 //         author: book.author,
 //         description: book.description,
 //         stock: book.stock,
-//         images: null,
-//         imagePreview: book.images?.[0] || null,
+//         images: [],
+//         imagePreviews: [],
+//         existingImages: book.images || [],
 //       });
 //     }
 //   }, [bookDetails]);
@@ -46,13 +48,33 @@
 //   };
 
 //   const handleImageUpload = (e) => {
-//     const file = e.target.files[0];
-//     if (file) {
-//       const imageUrl = URL.createObjectURL(file);
+//     const files = Array.from(e.target.files);
+    
+//     if (files.length > 0) {
+//       const newImagePreviews = files.map(file => URL.createObjectURL(file));
+      
 //       setBookData((prev) => ({
 //         ...prev,
-//         images: file,
-//         imagePreview: imageUrl,
+//         images: [...prev.images, ...files],
+//         imagePreviews: [...prev.imagePreviews, ...newImagePreviews],
+//       }));
+//     }
+//   };
+
+//   const removeImage = (index, isExisting = false) => {
+//     if (isExisting) {
+//       setBookData(prev => ({
+//         ...prev,
+//         existingImages: prev.existingImages.filter((_, i) => i !== index)
+//       }));
+//     } else {
+//       // Revoke the object URL to prevent memory leaks
+//       URL.revokeObjectURL(bookData.imagePreviews[index]);
+      
+//       setBookData(prev => ({
+//         ...prev,
+//         images: prev.images.filter((_, i) => i !== index),
+//         imagePreviews: prev.imagePreviews.filter((_, i) => i !== index)
 //       }));
 //     }
 //   };
@@ -61,11 +83,6 @@
 //     e.preventDefault();
 
 //     try {
-//       // if (id) {
-//       //   console.error("Book ID is missing!");
-//       //   return;
-//       // }
-
 //       const formData = new FormData();
 //       formData.append("title", bookData.title);
 //       formData.append("author", bookData.author);
@@ -73,14 +90,16 @@
 //       formData.append("price", bookData.price);
 //       formData.append("stock", bookData.stock);
 
-//       if (bookData.images) {
-//         formData.append("images", bookData.images);
-//       }
+//       // Append existing images that haven't been removed
+//       bookData.existingImages.forEach(image => {
+//         formData.append("existingImages", image);
+//       });
 
-//       console.log("Submitting Book ID:", id); // Debugging ID
-//       console.log("Form Data:", Object.fromEntries(formData.entries())); // Debugging Form Data
+//       // Append new images
+//       bookData.images.forEach(image => {
+//         formData.append("images", image);
+//       });
 
-//       // Call mutation with { id, book }
 //       const response = await updateBook({ id: id, book: formData }).unwrap();
 
 //       if (response?.success) {
@@ -128,29 +147,13 @@
 
 //           <form onSubmit={handleSubmit}>
 //             {/* Image Upload */}
-//             <div className="mb-4 flex items-center gap-4">
+//             <div className="mb-4">
 //               <label
 //                 htmlFor="imageUpload"
-//                 className="w-28 h-32 flex items-center justify-center border-2 border-dashed border-gray-500 rounded-lg cursor-pointer overflow-hidden bg-[#4D4D4D]"
+//                 className="inline-block mb-2 p-2 rounded-lg border border-gray-500 cursor-pointer hover:bg-gray-700 transition-colors"
 //               >
-//                 {bookData.imagePreview ? (
-//                   <img
-//                     src={
-//                       bookData.imagePreview.startsWith("blob:")
-//                         ? bookData.imagePreview
-//                         : `${import.meta.env.VITE_IMAGE_API}${
-//                             bookData.imagePreview
-//                           }`
-//                     }
-//                     alt="Book Preview"
-//                     className="w-full h-full object-cover"
-//                   />
-//                 ) : (
-//                   <div className="flex flex-col items-center">
-//                     <FaCloudUploadAlt size={24} />
-//                     <span className="text-sm">Upload Image</span>
-//                   </div>
-//                 )}
+//                 <FaCloudUploadAlt size={20} className="inline mr-2" />
+//                 <span>Upload Images</span>
 //               </label>
 //               <input
 //                 type="file"
@@ -158,7 +161,46 @@
 //                 accept="image/*"
 //                 className="hidden"
 //                 onChange={handleImageUpload}
+//                 multiple
 //               />
+              
+//               <div className="flex flex-wrap gap-4 mt-4">
+//                 {/* Existing Images */}
+//                 {bookData.existingImages.map((image, index) => (
+//                   <div key={`existing-${index}`} className="relative group">
+//                     <img
+//                       src={`${import.meta.env.VITE_IMAGE_API}${image}`}
+//                       alt={`Book Preview ${index + 1}`}
+//                       className="w-28 h-32 object-cover rounded-lg border border-gray-600"
+//                     />
+//                     <button
+//                       type="button"
+//                       onClick={() => removeImage(index, true)}
+//                       className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+//                     >
+//                       ×
+//                     </button>
+//                   </div>
+//                 ))}
+                
+//                 {/* Newly Uploaded Images */}
+//                 {bookData.imagePreviews.map((preview, index) => (
+//                   <div key={`new-${index}`} className="relative group">
+//                     <img
+//                       src={preview}
+//                       alt={`New Preview ${index + 1}`}
+//                       className="w-28 h-32 object-cover rounded-lg border border-gray-600"
+//                     />
+//                     <button
+//                       type="button"
+//                       onClick={() => removeImage(index)}
+//                       className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+//                     >
+//                       ×
+//                     </button>
+//                   </div>
+//                 ))}
+//               </div>
 //             </div>
 
 //             {/* Book Fields */}
@@ -263,9 +305,10 @@ export default function AddBookEdit() {
     author: "",
     description: "",
     stock: "",
-    images: [],
-    imagePreviews: [],
-    existingImages: [],
+    images: [], // New images to be uploaded
+    imagePreviews: [], // Preview URLs for new images
+    existingImages: [], // Existing images from server
+    removedImages: [], // Track images to be removed
   });
 
   // Load book details when available
@@ -281,6 +324,7 @@ export default function AddBookEdit() {
         images: [],
         imagePreviews: [],
         existingImages: book.images || [],
+        removedImages: [],
       });
     }
   }, [bookDetails]);
@@ -306,9 +350,12 @@ export default function AddBookEdit() {
 
   const removeImage = (index, isExisting = false) => {
     if (isExisting) {
+      // Add to removedImages array and remove from existingImages
+      const removedImage = bookData.existingImages[index];
       setBookData(prev => ({
         ...prev,
-        existingImages: prev.existingImages.filter((_, i) => i !== index)
+        existingImages: prev.existingImages.filter((_, i) => i !== index),
+        removedImages: [...prev.removedImages, removedImage]
       }));
     } else {
       // Revoke the object URL to prevent memory leaks
@@ -341,6 +388,11 @@ export default function AddBookEdit() {
       // Append new images
       bookData.images.forEach(image => {
         formData.append("images", image);
+      });
+
+      // Append removed images to be deleted from server
+      bookData.removedImages.forEach(image => {
+        formData.append("removedImages", image);
       });
 
       const response = await updateBook({ id: id, book: formData }).unwrap();
@@ -406,6 +458,13 @@ export default function AddBookEdit() {
                 onChange={handleImageUpload}
                 multiple
               />
+              
+              <div className="mt-2 text-sm text-gray-400">
+                {bookData.existingImages.length + bookData.imagePreviews.length} images selected
+                {bookData.removedImages.length > 0 && (
+                  <span>, {bookData.removedImages.length} images removed</span>
+                )}
+              </div>
               
               <div className="flex flex-wrap gap-4 mt-4">
                 {/* Existing Images */}

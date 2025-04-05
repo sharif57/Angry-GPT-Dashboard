@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Badge } from "antd";
 import profileImage from "../../assets/images/dash-profile.png";
 import { TbBellRinging } from "react-icons/tb";
@@ -50,7 +50,7 @@ const Header = () => {
       </div>
       <div className="flex gap-x-[41px]">
         <div
-          onClick={(e) => navigate("/notifications")}
+          // onClick={(e) => navigate("/notifications")}
           className="relative flex items-center "
         >
           <Badge
@@ -70,13 +70,13 @@ const Header = () => {
           </Badge>
         </div>
         <div className="flex items-center">
-          <div>
+          <Link to={'/settings/profile'}>
             <img
               src={`${IMAGE}${data?.data?.avatar}` || profileImage}
               alt=""
               className="rounded-full h-[42px] w-[42px]"
             />
-          </div>
+          </Link>
           {/* <Select
             defaultValue="Jane Cooper"
             style={{

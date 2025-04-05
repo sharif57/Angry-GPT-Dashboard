@@ -4,7 +4,7 @@ export const transactionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     updateProfile: builder.mutation({
       query: (data) => ({
-        url: "/admin/edit",
+        url: "/profile/edit",
         method: "PATCH",
         body: data,
         formData: true,
