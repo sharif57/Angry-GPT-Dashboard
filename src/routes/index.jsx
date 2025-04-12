@@ -8,17 +8,22 @@ import ForgotPassword from "../pages/Auth/ForgotPassword";
 import VerifyEmail from "../pages/Auth/VerifyEmail";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import ChangePassword from "../pages/Main/Setting/Change-password/ChangePassword";
+import AdminRoute from "../constants/AdminRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: (
+      <AdminRoute>
+        <Main />
+      </AdminRoute>
+    ),
     children: routesGenerators(dashboardItems),
   },
 
   {
     path: "/change-password",
-    element: <ChangePassword />
+    element: <ChangePassword />,
   },
   {
     path: "/auth",
